@@ -28,6 +28,7 @@ router.post('/',
       return res.status(400).json({ errors: [ { msg: 'User already exists' } ] })
     }
 
+    // Create gravatar variable
     const avatar = gravatar.url(email, {
       s: '200',
       r: 'pg',
@@ -36,6 +37,7 @@ router.post('/',
 
     user = new User({ name, email, avatar, password});
 
+    // Implement Bcrypt
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
@@ -47,6 +49,7 @@ router.post('/',
       }
     }
 
+    // JSON Web Token
     jwt.sign(
         payload,
         config.get('jwtToken'),
@@ -59,11 +62,13 @@ router.post('/',
 
   } catch (err) {
      console.log(err)
+     res.status(500).json('Server Error')
   }
 
+  // Express-Validator
   const errors = validationResult(req);
 
-  if ( !errors.isEmpty() ) {
+  if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
   console.log(req.body)

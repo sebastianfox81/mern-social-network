@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb://127.0.0.1/socialnetwork",
-  "jwtToken": "secretToken",
-  "githubClientId": "64a0894c171ebd52ab58",
-  "githubSecret": "427f85769b2088ec125184ca6a79098e9c0eb1e2"
-}

@@ -131,7 +131,7 @@ router.put('/like/:id', auth, async (req, res) => {
   }
 });
 
-// @route  PUT api/posts/like/:id
+// @route  PUT api/posts/unlike/:id
 // @desc   Like a post
 // @access Private
 router.put('/unlike/:id', auth, async (req, res) => {
@@ -191,5 +191,33 @@ router.post('/comment/:id', [ auth, [
     res.status(500).json('Server Error')
   }
 });
+
+// @route  Delete api/posts/comment/:id/:comment_id
+// @desc   Delete comment
+// @access Private
+router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Pull out comment
+    const comment = post.comments.find(comment => comment.id === req.params.comment_id);
+    // Make sure comment exists
+    if (!comment) {
+      return res.status(400).json({ msg: 'Comment does not exist'})
+    }
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User NOT authorized'})
+    }
+    const removeIndex = post.comments.map(comment => comment.user.toString().indexOf(req.user.id));
+    post.comments.splice(removeIndex, 1);
+
+    await post.save();
+
+    res.json(post.comments)
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error')
+  }
+})
 
 module.exports = router;

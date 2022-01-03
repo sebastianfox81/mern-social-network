@@ -10,16 +10,16 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Fragment>
-    <Navbar />
-    <Routes>
-      <Route exact path="/" element={<Landing />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-    </Routes>
-    </Fragment>
+      <Fragment>
+        <Navbar />
+          <Routes>
+            <Route exact path="/" element={<Landing />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Routes>
+      </Fragment>
 
-  </BrowserRouter>
+    </BrowserRouter>
 
   )
 }

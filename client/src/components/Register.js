@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function Register() {
 
@@ -23,7 +24,10 @@ export default function Register() {
     if (password !== password2) {
       console.log('Passwords Do Not Match')
     } else {
-      console.log(formData)
+      const user = { name, email, password }
+      axios.post('http://localhost:5000/api/users', user)
+       .then(res => console.log(res.data))
+       .catch(err => console.log(err))
     }
   }
 
@@ -37,7 +41,7 @@ export default function Register() {
           <input
             onChange={handleChange}
             id="name"
-            // value={name}
+            value={name}
             type="text"
             placeholder="Name"
             name="name"
@@ -47,7 +51,7 @@ export default function Register() {
           <input
             onChange={handleChange}
             id="email"
-            // value={email}
+            value={email}
             type="email"
             placeholder="Email Address"
             name="email"
@@ -61,7 +65,7 @@ export default function Register() {
           <input
             onChange={handleChange}
             id="password"
-            // value={password}
+            value={password}
             type="password"
             placeholder="Password"
             name="password"
@@ -72,7 +76,7 @@ export default function Register() {
           <input
             onChange={handleChange}
             id="password2"
-            // value={password2}
+            value={password2}
             type="password"
             placeholder="Confirm Password"
             name="password2"

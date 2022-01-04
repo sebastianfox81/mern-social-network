@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { setAlert } from '../actions/alert';
+import PropTypes from 'prop-types'
 
-export default function Register() {
+
+function Register({ setAlert }) {
 
   const [ formData, setFormData ] = useState({
     name: '',
@@ -23,18 +26,14 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords Do Not Match')
+      setAlert('Passwords Do Not Match', 'danger')
     } else {
-      const user = { name, email, password }
-      axios.post('http://localhost:5000/api/users', user)
-       .then(res => console.log(res.data))
-       .catch(err => console.log(err))
+      console.log('SUCCESS')
     }
   }
 
   return (
     <div>
-      <h1 className="large text-primary">Sign Up</h1>
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form onSubmit={handleSubmit} className="form" action="create-profile.html">
@@ -92,3 +91,9 @@ export default function Register() {
     </div>
   )
 }
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired
+}
+
+export default connect(null, { setAlert })(Register)

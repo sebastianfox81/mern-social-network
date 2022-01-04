@@ -30,7 +30,6 @@ export default function Login() {
   return (
     <div>
       <h1 className="large text-primary">Login</h1>
-      <h1 className="large text-primary">Login</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form onSubmit={handleSubmit} className="form" action="create-profile.html">
 

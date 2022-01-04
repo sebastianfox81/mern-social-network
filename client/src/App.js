@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.js';
 import Landing from './components/Landing.js';
 import Login from './components/Login.js';
 import Register from './components/Register.js';
+import Alert from './components/Alert.js';
 import './App.css';
 // Redux
 import { Provider } from 'react-redux';
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <Provider store={store}>
+      <Alert />
       <BrowserRouter>
         <Fragment>
           <Navbar />
